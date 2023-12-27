@@ -1,0 +1,63 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@attribute [Authorize]
+
+<PageTitle>CRUD Page</PageTitle>
+<div class="d-flex justify-content-between">
+    <button class="btn btn-primary" @onclick=OpenModalPersonel>افزودن شخص</button>
+    <AuthorizeView Context="ctx">
+        <Authorized>
+            <span class="p-2 bg-warning">@ctx.User.Identity?.Name</span>
+        </Authorized>
+    </AuthorizeView>
+</div>
+
+<hr />
+<table class="table table-bordered table-hover text-center">
+    <thead>
+        <tr>
+            <td>ویرایش</td>
+            <td>حذف</td>
+            <td>کد ملی</td>
+            <td>نام</td>
+            <td>نام خانوادگی</td>
+            <td>نوع</td>
+        </tr>
+    </thead>
+    <tbody>
+        @if (listPersonel != null)
+        {
+
+            @foreach (var personel in listPersonel)
+            {
+                <tr>
+                    <td>
+                        <button class="btn btn-info btn-sm" @onclick=@(()=>UpdatePersonel(personel))>ویرایش</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" @onclick=@(()=>DeletePersonel(personel))>حذف</button>
+                    </td>
+                    <td>@personel.CodeMeli</td>
+                    <td>@personel.Name</td>
+                    <td>@personel.Family</td>
+                    <td>@personel.DIMPersonelType.Title</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="99">
+                    <SpinnerComponent />
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<AddPersonelModal @ref=elemAddPersonelModal OnPersonelCreated="OnPersonelCreated" OnPersonelUpdated="OnPersonelUpdated" />
+
+
+

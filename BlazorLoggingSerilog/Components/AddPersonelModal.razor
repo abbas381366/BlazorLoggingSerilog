@@ -1,0 +1,50 @@
+﻿<div class="modal fade" id="@modalID" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">مدیریت اشخاص</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if (modalMode != "update")
+                {
+                    <div class="mb-2">
+                        <label class="form-label">کد ملی</label>
+                        <input class="form-control" @bind=personel.CodeMeli />
+                    </div>
+                }
+                <div class="mb-2">
+                    <label class="form-label">نام</label>
+                    <input class="form-control" @bind=personel.Name />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">نام خانوادگی</label>
+                    <input class="form-control" @bind=personel.Family />
+                </div>
+                <div class="mb-2">
+                    <label class="form-label">نوع شخص</label>
+                    <select class="form-select" @bind=personel.IDDimPersonelType>
+                        @if (listPersonelType is null)
+                        {
+                            <option>
+                                <SpinnerComponent />
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="-1">---</option>
+                            @foreach (var item in listPersonelType)
+                            {
+                                <option value="@item.ID">@item.Title</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">بستن</button>
+                <button type="button" class="btn btn-primary" @onclick=OnSaveClicked>ذخیره</button>
+            </div>
+        </div>
+    </div>
+</div>

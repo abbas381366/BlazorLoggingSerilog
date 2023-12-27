@@ -1,0 +1,21 @@
+﻿@layout EmptyLayout
+@page "/login"
+<div class="d-grid w-100 h-100 bg-light">
+    <div class="m-auto w-25 h-50 bg-dark p-2">
+        <EditForm Enhance=true FormName="loginForm" Model="this" OnSubmit="Login">
+
+            <div class="mb-2">
+                <label class="form-label text-white">نام کاربری</label>
+                <InputText @bind-Value=Username class="form-control"/>
+            </div>
+            <div class="mb-2">
+                <label class="form-label text-white">کلمه عبور</label>
+                <InputText @bind-Value=Password class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary w-100 mt-2">ورود</button>
+        </EditForm>
+        <span class="text-danger">
+            @message
+        </span>
+    </div>
+</div>
